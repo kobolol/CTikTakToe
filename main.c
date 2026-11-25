@@ -26,16 +26,23 @@ int main() {
         greetings("Tik Tak Toe");
 
         int height = intQuestion("Spielfeldhoehe", MIN_FIELD_SIZE, MAX_FIELD_SIZE);
-        int width = intQuestion("Spielfeldbreite", 3, 8);
+        int width = intQuestion("Spielfeldbreite", MIN_FIELD_SIZE, MAX_FIELD_SIZE);
 
         pGameField = calloc(height * width, sizeof(FeldZustand));
         if (pGameField == NULL) {
             return 20;
         }
 
-        free(pGameField);
+        mainLoop(pGameField, height, width);
+        
+        //free(pGameField);
         boolQuestion(&endGame, "Willst du das Spiel beenden?");
     }
+}
+
+
+static void mainLoop(FeldZustand* gameField, int height, int width) {
+
 }
 
 static void boolQuestion(bool* pBool, char* question) {
@@ -64,8 +71,4 @@ static void greetings(char* gameName) {
     printf("\033[2J\033[H");
 
     printf("------- %s -------\n", gameName);
-}
-
-static void mainLoop(FeldZustand* gameField, int height, int width) {
-
 }
