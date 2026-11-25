@@ -3,17 +3,19 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-static void boolQuestion(bool* pBool, char* question);
-static int intQuestion(char* question, int includedMin, int includedMax);
-static void greetings(char* gameName);
-static void mainLoop(FeldZustand* gameField);
-static void mainLoop(FeldZustand* gameField, int height, int width);
+#define MAX_FIELD_SIZE 8
+#define MIN_FIELD_SIZE 3
 
 typedef enum {
     LEER = 0,
     SPIELER_X = 1,
     SPIELER_O = 2
 } FeldZustand;
+
+static void boolQuestion(bool* pBool, char* question);
+static int intQuestion(char* question, int includedMin, int includedMax);
+static void greetings(char* gameName);
+static void mainLoop(FeldZustand* gameField, int height, int width);
 
 int main() {
     bool endGame = false;
@@ -23,8 +25,8 @@ int main() {
     while (!endGame) {
         greetings("Tik Tak Toe");
 
-        int height = intQuestion("Spielfeldhoehe", 2, 8);
-        int width = intQuestion("Spielfeldbreite", 2, 8);
+        int height = intQuestion("Spielfeldhoehe", MIN_FIELD_SIZE, MAX_FIELD_SIZE);
+        int width = intQuestion("Spielfeldbreite", 3, 8);
 
         pGameField = calloc(height * width, sizeof(FeldZustand));
         if (pGameField == NULL) {
